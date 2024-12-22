@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_num.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otaniyuhi <otaniyuhi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: oyuhi <oyuhi@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:55:52 by otaniyuhi         #+#    #+#             */
-/*   Updated: 2024/11/25 21:04:11 by otaniyuhi        ###   ########.fr       */
+/*   Updated: 2024/12/22 15:06:48 by oyuhi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	putnbr(unsigned long long ull, int base, char sign)
 	count = 0;
 	if (sign == '-')
 		count += write(1, "-", 1);
-	else if (sign == 'p')
-		count += write(1, "0x", 2);
 	if (count == -1)
 		return (-1);
 	str = itoa_ull(ull, base, sign);
@@ -95,4 +93,18 @@ int	minus_flag(int n)
 	else
 		ull = n;
 	return (putnbr(ull, 10, sign));
+}
+
+int	handle_ptr(unsigned long long ull)
+{
+	int	count;
+
+	count = 0;
+	if (ull == 0)
+	{
+		count += write(1, "(nil)", 5);
+		return (count);
+	}
+	count += write(1, "0x", 2);
+	return (putnbr(ull, 16, 'p') + count);
 }
